@@ -13,25 +13,22 @@ Summarize monthly total revenue and balance by customer segments from Jan 2019 t
 */
 * loop yymm variable through months;
 %for(1901, 2009, yymm, %nrstr(
-    * prepare customer base by segment;
-	%customer_segment(&yymm.);
-    * operating on customer base;
-	%with(segment_&yymm.);
-		%freq(, segment);
-        * extract revenue and balance data, and merge them to customer base;
-		%mkconcat(, &yymm., revenue prod_balance,);
-		%p
-		%sql
-			select segment
-				, count(*) as n_cust
-				%foreach(var, aum rev bal_fx bal_cash bal_ut bal_sec, %nrstr(
-					, sum(&var.) as &var.
-				))
-			%from
-			group by segment
-			%quit
-		%p(,30)
-		%saveas(,smry&yymm.)
+    %customer_segment(&yymm.);
+    %with(segment_&yymm.);
+        %freq(, segment);
+        %mkconcat(, &yymm., revenue prod_balance,);
+        %p
+        %sql
+            select segment
+            , count(*) as n_cust
+            %foreach(var, aum rev bal_fx bal_cash bal_ut bal_sec, %nrstr(
+                , sum(&var.) as &var.
+                ))
+            %from
+            group by segment
+            %quit
+        %p(,30)
+        %saveas(,smry&yymm.)
 ))
 ```
 
