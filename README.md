@@ -2,6 +2,8 @@
 
 Data analysis in human language.
 
+Write logic, not code.
+
 # Talk is cheap, here is the code
 
 Below is a typical data processing process done in sasboost and vanilla SAS.
@@ -110,3 +112,6 @@ libname datamart "/home/joy/customer";
 %summarize(2008);
 %summarize(2009);
 ```
+
+# Usage
+Run sasboost file in SAS to define the macros. You can also pick out and run only the macros you want.
